@@ -1,9 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-# Create your models here.
-# MODERATE_STATUSES = [('Moderated', 'Модерированный'), ('Not moderate', 'Не модерированный')]
-
 CATEGORY_CHOICES = [('Drinks', 'Напитки'), ('Sweets', 'Сладости'), ('Bakery', 'Выпечка')]
 RATING_CHOICES = [('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')]
 
@@ -22,13 +19,11 @@ class Product(BaseModel):
                                 default=CATEGORY_CHOICES[0][0],
                                 verbose_name='Категория продукта')
     description = models.TextField(max_length=3000, verbose_name="Описание продукта")
-    image = models.ImageField(upload_to="images", null=True, blank=True, verbose_name="Изображение")
+    image = models.ImageField(upload_to='images', null=True, blank=True,
+                              verbose_name="Изображение")
 
     def __str__(self):
         return f"{self.id}. {self.name}."
-
-    # def get_absolute_url(self):
-    #     # return reverse("webapp:ProjectView", kwargs={"pk": self.pk})
 
     class Meta:
         db_table = "products"
