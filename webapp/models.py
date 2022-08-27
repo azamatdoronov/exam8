@@ -29,6 +29,11 @@ class Product(BaseModel):
         db_table = "products"
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
+        permissions = [
+            ('create_product', 'Создать товар'),
+            ('update_product', 'Редактировать товар'),
+            ('remove_product', 'Удалить товар'),
+        ]
 
 
 class Review(BaseModel):
@@ -49,3 +54,8 @@ class Review(BaseModel):
         db_table = "review"
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+        permissions = [
+            ('create_review', 'Создать отзыв'),
+            ('update_review', 'Редактировать отзыв'),
+            ('remove_review', 'Удалить отзыв'),
+        ]

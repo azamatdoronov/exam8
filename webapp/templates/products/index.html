@@ -16,7 +16,7 @@
                         <p class="card-text">Категория: {{ product.category }}</p>
                         <div class="btn-group">
                             {% if request.user.is_authenticated %}
-                                {% if perms.webapp.create_project %}
+                                {% if perms.webapp.create_product %}
                                     <a class="btn btn-primary" href="{% url 'webapp:product_update' product.pk %}">Изменить</a>
                                     <a class="btn btn-danger" href="{% url 'webapp:product_delete' product.pk %}">Удалить</a>
                                 {% endif %}
