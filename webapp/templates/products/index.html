@@ -15,10 +15,14 @@
                                 href="{% url "webapp:product_view" product.pk %}">{{ product.name }}</a></h5>
                         <p class="card-text">Категория: {{ product.category }}</p>
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="{% url 'webapp:product_update' product.pk %}">Изменить</a>
-                            <a class="btn btn-danger" href="{% url 'webapp:product_delete' product.pk %}">Удалить</a>
+                            {% if request.user.is_authenticated %}
+                                {% if perms.webapp.create_project %}
+                                    <a class="btn btn-primary" href="{% url 'webapp:product_update' product.pk %}">Изменить</a>
+                                    <a class="btn btn-danger" href="{% url 'webapp:product_delete' product.pk %}">Удалить</a>
+                                {% endif %}
+                            {% endif %}
                         </div>
-{#                        {% include "partial/cart_add_form.html" %}#}
+                        {#                        {% include "partial/cart_add_form.html" %}#}
                     </div>
                 </div>
             </div>

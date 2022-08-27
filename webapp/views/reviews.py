@@ -27,8 +27,8 @@ class UpdateReview(UserPassesTestMixin, UpdateView):
     template_name = "reviews/update.html"
     model = Review
 
-    def test_func(self):
-        return self.get_object().author == self.request.user or\
+    def has_permission(self):
+        return self.get_object().author == self.request.user or \
                self.request.user.has_perm('webapp.change_review')
 
     def get_success_url(self):
@@ -43,3 +43,7 @@ class DeleteReview(DeleteView):
 
     def get_success_url(self):
         return reverse("webapp:product_view", kwargs={"pk": self.object.product.pk})
+
+    def has_permission(self):
+        return self.get_object().author == self.request.user or \
+               self.request.user.has_perm('webapp.delete_review')

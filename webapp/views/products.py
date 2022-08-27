@@ -29,6 +29,10 @@ class ProductCreateView(CreateView):
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
+    def has_permission(self):
+        return self.request.user.has_perm("webapp.create_product") or \
+               self.request.user == self.get_object().users
+
 
 class ProductUpdateView(UpdateView):
     model = Product
@@ -38,8 +42,16 @@ class ProductUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
+    def has_permission(self):
+        return self.request.user.has_perm("webapp.update_product") or \
+               self.request.user == self.get_object().users
+
 
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'products/product_delete.html'
     success_url = reverse_lazy('webapp:index')
+
+    def has_permission(self):
+        return self.request.user.has_perm("webapp.delete_product") or \
+               self.request.user == self.get_object().users

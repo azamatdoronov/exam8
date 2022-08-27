@@ -3,8 +3,14 @@
 {% block title %}Просмотр{% endblock %}
 
 {% block nav %}
-    <li class="nav-item"><a class="nav-link" href="{% url 'webapp:product_update' products.pk %}">Изменить</a></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'webapp:product_delete' products.pk %}">Удалить</a></li>
+    {% if request.user.is_authenticated %}
+        {% if perms.webapp.create_project %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'webapp:product_update' products.pk %}">Изменить</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'webapp:product_delete' products.pk %}">Удалить</a>
+            </li>
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
